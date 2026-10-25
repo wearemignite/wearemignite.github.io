@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://wearemignite.github.io/sitemap.xml
+Sitemap: https://wearemignite.com/sitemap.xml
