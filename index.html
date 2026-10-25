@@ -1510,7 +1510,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   }
   /* Dirección del Apps Script que guarda el brief en Google Sheets y avisa por correo.
      Vacía = modo respaldo (copiar el mensaje y pegarlo en el chat de Instagram). */
-  const BRIEF_ENDPOINT = "";
+  const BRIEF_ENDPOINT = "https://script.google.com/macros/s/AKfycbwyMh4bkxO80edQsfYOFIOXYxHCrMFzjdwsHZbCirpdlaG2Am5QSJMQoKYO9Z3WNPdmDQ/exec";
   async function deliverBrief(data){
     if (!BRIEF_ENDPOINT) return false;
     try{
