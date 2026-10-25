@@ -2220,7 +2220,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
     if (mob){
       cards.forEach((c,i) => {
         ScrollTrigger.create({trigger:c, start:"top 60%", end:"bottom 30%", onToggle: s => s.isActive && setActive(i)});
-        if (i < cards.length-1) gsap.to(c, {scale:.93, filter:"brightness(.85)", ease:"none", scrollTrigger:{trigger:cards[i+1], start:"top bottom", end:"top 20%", scrub:true}});
+        if (i < cards.length-1) gsap.to(c, {scale:.96, ease:"none", scrollTrigger:{trigger:cards[i+1], start:"top bottom", end:"top 20%", scrub:true}});
       });
     }
 
