@@ -625,6 +625,12 @@ input::placeholder,textarea::placeholder{color:#9b918a}
 .f-ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 26s linear infinite;overflow:visible}
 .f-ring text{fill:var(--chispa);font:700 10.5px var(--font);letter-spacing:.5px}
 
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.reg-wrap{margin-top:22px;scroll-margin-top:96px}
+.reg-card .fields{grid-template-columns:1fr}
+.reg-card h3{font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.05;margin-bottom:6px}
+.reg-card .reg-sub{color:var(--ceniza-2);margin-bottom:22px}
+.reg-card .wiz-nav .btn{flex:1 1 100%}
 /* ===== brief sobre naranja ===== */
 .band-orange .meet-steps li{color:#2a1608}
 .band-orange .meet-steps li::before{color:var(--carbon)}
@@ -1056,9 +1062,9 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   <div class="wrap form-grid">
     <div class="form-side">
       <h2 id="brief-title" class="split">Diseñemos tu plan</h2>
-      <p class="lead">Si ya sabes que quieres trabajar con nosotros, empecemos por aquí. Este brief nos prepara para la reunión donde armamos tu estrategia juntos.</p>
+      <p class="lead">Si ya sabes que quieres trabajar con nosotros, empecemos por aquí. Cuéntanos de tu marca y llegamos a la reunión con ideas listas para armar tu estrategia juntos.</p>
       <ol class="meet-steps">
-        <li><span><b>Llenas este brief</b>Cuatro pasos cortos, unos cinco minutos.</span></li>
+        <li><span><b>Nos cuentas de tu marca</b>Cuatro pasos cortos, unos cinco minutos.</span></li>
         <li><span><b>Agendamos una videollamada</b>Lo revisamos contigo y completamos lo que falte.</span></li>
         <li><span><b>Recibes tu plan personalizado</b>Estrategia, entregables, tiempos e inversión por escrito.</span></li>
       </ol>
@@ -1179,15 +1185,41 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
       </ul>
     </div>
     <div class="unlock" id="unlock">
-      <p class="u-level" id="u-level" hidden><span>Elegiste el nivel <b id="u-level-name"></b>. Márcalo también en el formulario.</span><a href="#niveles">Cambiar</a></p>
+      <p class="u-level" id="u-level" hidden><span>Elegiste el nivel <b id="u-level-name"></b>. Ya lo marcamos en tu registro.</span><a href="#niveles">Cambiar</a></p>
       <label class="u-track" id="u-track" for="u-range">
         <span class="u-fill" aria-hidden="true"></span>
         <span class="u-text" aria-hidden="true"><span class="u-off">Desliza la chispa para desbloquear tu cupo</span><span class="u-on">Cupo desbloqueado</span></span>
         <input type="range" id="u-range" min="0" max="100" value="0" step="1" aria-label="Desliza hasta el final para desbloquear el botón de registro">
       </label>
       <div class="u-row">
-        <a class="btn u-btn" id="u-btn" href="https://form.typeform.com/to/lvf1GJ4o" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" data-cursor="Abrir"><svg class="u-lock" aria-hidden="true"><use href="#ico-lock"/></svg><span id="u-btn-txt">Botón bloqueado</span><svg class="go" aria-hidden="true"><use href="#ico-arrow"/></svg></a>
-        <small id="u-hint">Toma menos de 2 minutos.</small>
+        <a class="btn u-btn" id="u-btn" href="#reg-wrap" aria-disabled="true" tabindex="-1" data-cursor="Abrir"><svg class="u-lock" aria-hidden="true"><use href="#ico-lock"/></svg><span id="u-btn-txt">Botón bloqueado</span><svg class="go" aria-hidden="true"><use href="#ico-arrow"/></svg></a>
+        <small id="u-hint">Toma menos de un minuto.</small>
+      </div>
+      <div class="reg-wrap" id="reg-wrap" hidden>
+        <div class="form-card reg-card">
+          <form id="reg-form" novalidate>
+            <h3>Tu registro</h3>
+            <p class="reg-sub">Menos de un minuto. Te escribimos para empezar con tu diagnóstico gratis.</p>
+            <div class="fields">
+              <div class="field"><label for="r-nombre">Tu nombre</label><input id="r-nombre" name="nombre" type="text" required autocomplete="name"></div>
+              <div class="field"><label for="r-marca">Nombre de tu marca</label><input id="r-marca" name="marca" type="text" required autocomplete="organization"></div>
+              <div class="field"><label for="r-wa">WhatsApp</label><input id="r-wa" name="whatsapp" type="tel" required autocomplete="tel" inputmode="tel"></div>
+              <div class="field"><label for="r-email">Correo</label><input id="r-email" name="correo" type="email" required autocomplete="email" inputmode="email"></div>
+              <div class="field full"><label for="r-ig">Instagram de tu marca <span class="opt">(opcional)</span></label><input id="r-ig" name="instagram" type="text" placeholder="@tumarca" autocapitalize="off"></div>
+              <fieldset class="field full"><legend>Nivel que te interesa</legend>
+                <div class="choice" id="r-levels">
+                  <label><input type="radio" name="nivel" value="Chispa"><span>Chispa</span></label>
+                  <label><input type="radio" name="nivel" value="Flama"><span>Flama</span></label>
+                  <label><input type="radio" name="nivel" value="Ignición"><span>Ignición</span></label>
+                  <label><input type="radio" name="nivel" value="Fórmula"><span>Fórmula</span></label>
+                </div>
+              </fieldset>
+            </div>
+            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="wiz-nav"><button class="btn" type="submit" id="reg-send">Reservar mi cupo</button></div>
+          </form>
+          <div class="done" id="reg-done" hidden tabindex="-1"></div>
+        </div>
       </div>
     </div>
     <div class="ticket-wrap">
@@ -1221,7 +1253,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
       <svg class="line" aria-hidden="true" preserveAspectRatio="none"><path d="M0 3H100" pathLength="1"/><path class="lit" d="M0 3H100" pathLength="1"/></svg>
       <div class="r-step"><span class="r-dot">01</span><h3>Te registras</h3><p>Llenas el formulario de la fase beta en menos de 2 minutos.</p></div>
       <div class="r-step"><span class="r-dot">02</span><h3>Diagnóstico gratis</h3><p>Revisamos tu marca y te escribimos con lo que encontramos.</p></div>
-      <div class="r-step"><span class="r-dot">03</span><h3>Sesión de Ignición</h3><p>Una videollamada donde completamos juntos el brief de tu marca.</p></div>
+      <div class="r-step"><span class="r-dot">03</span><h3>Sesión de Ignición</h3><p>Una videollamada donde completamos juntos la información de tu marca.</p></div>
       <div class="r-step"><span class="r-dot">04</span><h3>Tu plan personalizado</h3><p>Estrategia, entregables, tiempos e inversión por escrito.</p></div>
     </div>
     <div class="route-cta">
@@ -1264,7 +1296,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa1" id="qa1-b">¿Cuánto cuesta trabajar con MIGNITE?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa1" role="region" aria-labelledby="qa1-b"><div><p>Nuestros planes empiezan desde RD$10,000 al mes. El monto final depende de lo que necesites, por eso armamos un plan personalizado después de la Sesión de Ignición. En la fase beta además tienes descuento.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa2" id="qa2-b">¿Trabajan con negocios fuera de República Dominicana?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa2" role="region" aria-labelledby="qa2-b"><div><p>Sí. Nuestra base está en Santiago de los Caballeros, pero trabajamos de forma remota con marcas de cualquier país. Las reuniones son por videollamada.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa3" id="qa3-b">¿Qué es la fase beta?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa3" role="region" aria-labelledby="qa3-b"><div><p>Es el periodo antes de nuestro lanzamiento oficial. Las primeras marcas que se registren reciben descuento exclusivo, atención preferencial, un diagnóstico de marca gratis y un entregable extra de regalo.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa4" id="qa4-b">¿Qué es la Sesión de Ignición?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa4" role="region" aria-labelledby="qa4-b"><div><p>Es una videollamada donde llenamos contigo el brief completo de tu marca: negocio, clientes, competencia y objetivos. Con eso diseñamos tu plan y tu estrategia personalizados.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa4" id="qa4-b">¿Qué es la Sesión de Ignición?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa4" role="region" aria-labelledby="qa4-b"><div><p>Es una videollamada donde repasamos contigo todo lo importante de tu marca: negocio, clientes, competencia y objetivos. Con eso diseñamos tu plan y tu estrategia personalizados.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa5" id="qa5-b">¿En cuánto tiempo veo resultados?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa5" role="region" aria-labelledby="qa5-b"><div><p>Depende del objetivo. El primer mes se usa para ordenar la estrategia y lanzar; a partir del segundo ya hay datos para ajustar. Cada mes recibes un reporte con lo que pasó y lo que vamos a cambiar.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa6" id="qa6-b">No tengo logo ni identidad. ¿Pueden ayudarme?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa6" role="region" aria-labelledby="qa6-b"><div><p>Sí. Branding e identidad visual es uno de nuestros servicios principales: logo, colores, tipografía y manual de marca.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false" aria-controls="qa7" id="qa7-b">¿Cómo empezamos?<span class="pm" aria-hidden="true"><svg><use href="#ico-plus"/></svg></span></button><div class="qa-body" id="qa7" role="region" aria-labelledby="qa7-b"><div><p>Ve a la <a href="#beta">sección de registro de la fase beta</a>, desbloquea el botón y llena el formulario. Te contactamos, hacemos tu diagnóstico y agendamos la Sesión de Ignición.</p></div></div></div>
@@ -1511,18 +1543,18 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   /* Dirección del Apps Script que guarda el brief en Google Sheets y avisa por correo.
      Vacía = modo respaldo (copiar el mensaje y pegarlo en el chat de Instagram). */
   const BRIEF_ENDPOINT = "https://script.google.com/macros/s/AKfycbwyMh4bkxO80edQsfYOFIOXYxHCrMFzjdwsHZbCirpdlaG2Am5QSJMQoKYO9Z3WNPdmDQ/exec";
-  async function deliverBrief(data){
+  async function deliverBrief(data, tipo){
     if (!BRIEF_ENDPOINT) return false;
     try{
       const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 12000);
-      await fetch(BRIEF_ENDPOINT, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify({tipo:"Brief de plan personalizado", ...data}), signal: ctl.signal});
+      await fetch(BRIEF_ENDPOINT, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify({tipo: tipo || "Brief de plan personalizado", ...data}), signal: ctl.signal});
       clearTimeout(t); return true;
     }catch(e){ return false; }
   }
   function renderDone(box, form, text, sent){
     form.hidden = true; box.hidden = false;
     if (sent){
-      box.innerHTML = `<h3>¡Brief recibido!</h3><p>Ya tenemos tu información. Te escribimos en un máximo de 48 horas para confirmar fecha, hora y enlace de tu reunión.</p><div class="row"><a class="btn" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener">Seguir @wearemignite</a><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Escribirnos por Instagram</a></div>`;
+      box.innerHTML = `<h3>¡Recibimos tu información!</h3><p>Ya tenemos tu información. Te escribimos en un máximo de 48 horas para confirmar fecha, hora y enlace de tu reunión.</p><div class="row"><a class="btn" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener">Seguir @wearemignite</a><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Escribirnos por Instagram</a></div>`;
     } else {
       box.innerHTML = `<h3>Tu solicitud está lista</h3><p>Último paso: envíanosla por mensaje directo para que quede registrada. Copia el texto y pégalo en el chat de @wearemignite.</p><div class="msg-box" id="${box.id}-txt"></div><div class="row"><button class="btn" type="button" data-copy>Copiar mensaje</button><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Abrir chat de Instagram</a></div><p class="copy-status" aria-live="polite"></p>`;
       $(".msg-box", box).textContent = text;
@@ -1563,7 +1595,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
     renderDone($("#brief-done"), brief, summary("Hola MIGNITE, quiero agendar mi Sesión de Ignición para un plan personalizado.", data), sent);
     if (window.gsap && !reduce) gsap.from($$("#brief-done > *"), {y:30, opacity:0, duration:.7, ease:"power3.out", stagger:.08});
   });
-  const syncBriefLevel = name => { const r = $(`#p-levels input[value="${name}"]`); if (r) r.checked = true; };
+  const syncBriefLevel = name => { ["#p-levels","#r-levels"].forEach(id => { const r = $(`${id} input[value="${name}"]`); if (r) r.checked = true; }); };
 
   /* ===== nivel elegido + desbloqueo del registro ===== */
   const LV = ["Chispa","Flama","Ignición","Fórmula"];
@@ -1597,8 +1629,8 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
     if (done) return; done = true; cancelAnimationFrame(snapRaf);
     setV(100); range.disabled = true; unlock.classList.add("done");
     uBtn.removeAttribute("aria-disabled"); uBtn.removeAttribute("tabindex");
-    uTxt.textContent = "Ir al formulario de registro";
-    uHint.textContent = "Listo. Se abre en una pestaña nueva y toma menos de 2 minutos.";
+    uTxt.textContent = "Llenar mi registro";
+    uHint.textContent = "Listo. Toma menos de un minuto.";
     $("#ticket").classList.add("stamped"); $("#t-stub-txt").textContent = "REGÍSTRATE";
     sparkAt(track, 22); setTimeout(() => sparkAt(uBtn, 14), 250);
     if (hasG && !reduce) gsap.fromTo(uBtn, {scale:.85}, {scale:1, duration:.8, ease:"elastic.out(1,.4)"});
@@ -1620,7 +1652,36 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   range.addEventListener("pointerup", release); range.addEventListener("pointercancel", release);
   addEventListener("pointerup", release);
   range.addEventListener("change", () => { if (+range.value >= 98) doUnlock(); });
-  uBtn.addEventListener("click", e => { if (!done) e.preventDefault(); });
+  uBtn.addEventListener("click", e => {
+    e.preventDefault(); if (!done) return;
+    const w = $("#reg-wrap"); w.hidden = false;
+    if (hasG && !reduce) gsap.from(w, {y:30, opacity:0, duration:.6, ease:"power3.out"});
+    setTimeout(() => { w.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"}); setTimeout(() => $("#r-nombre").focus({preventScroll:true}), 500); }, 60);
+  });
+
+  /* ===== registro fase beta (en la página) ===== */
+  const reg = $("#reg-form"), regDone = $("#reg-done");
+  reg.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!validate(reg)) return;
+    const btn = $("#reg-send"), lab = btn.textContent; btn.disabled = true; btn.textContent = "Enviando…";
+    const data = collect(reg), bot = data.website; delete data.website;
+    const sent = bot ? true : await deliverBrief(data, "Registro fase beta");
+    reg.hidden = true; regDone.hidden = false; btn.disabled = false; btn.textContent = lab;
+    if (sent){
+      regDone.innerHTML = `<h3>¡Cupo reservado!</h3><p>Te escribimos en un máximo de 48 horas para agendar tu diagnóstico de marca gratis. Si quieres adelantar camino, cuéntanos un poco más de tu marca y llegamos a la reunión con ideas listas.</p><div class="row"><button class="btn" type="button" id="reg-more">Cuéntanos de tu marca</button><a class="btn btn-ghost" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener">Seguir @wearemignite</a></div>`;
+      $("#reg-more").addEventListener("click", () => {
+        const map = {nombre:"#p-nombre", correo:"#p-email", whatsapp:"#p-wa", marca:"#p-marca", instagram:"#p-web"};
+        for (const k in map){ const f = $(map[k]); if (f && data[k]) f.value = data[k]; }
+        if (data.nivel) syncBriefLevel(data.nivel);
+        const t = $("#brief"); scrollTo({top: t.getBoundingClientRect().top + scrollY - 60, behavior: reduce?"auto":"smooth"});
+        setTimeout(() => { const f = $("#p-ind"); if (f) f.focus({preventScroll:true}); }, 900);
+      });
+    } else {
+      regDone.innerHTML = `<h3>No pudimos enviarlo</h3><p>Hubo un problema de conexión. Puedes registrarte en este otro formulario o escribirnos directo por Instagram.</p><div class="row"><a class="btn" href="https://form.typeform.com/to/lvf1GJ4o" target="_blank" rel="noopener">Registrarme en el formulario</a><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Escribirnos por Instagram</a></div>`;
+    }
+    regDone.focus({preventScroll:true});
+  });
 
   /* ===== niveles que se queman al pasar el cursor ===== */
   const mkSprite = stops => { const c=document.createElement("canvas"); c.width=c.height=64; const g=c.getContext("2d"); const gr=g.createRadialGradient(32,32,0,32,32,32); stops.forEach(([o,col])=>gr.addColorStop(o,col)); g.fillStyle=gr; g.fillRect(0,0,64,64); return c; };
