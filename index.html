@@ -132,7 +132,7 @@ p{margin:0}
 .hero h1{font-size:clamp(2.9rem,14vw,12.6rem);letter-spacing:-.05em;line-height:.86;margin-left:-.05em}
 .hero h1 .ln{display:block}
 .hero h1 .wd{display:inline-block;white-space:nowrap}
-.hero h1 .c{display:inline-block;will-change:transform;transition-delay:calc(var(--d)*42ms),calc(var(--d)*42ms + 1.4s)}
+.hero h1 .c{display:inline-block;padding:.18em .1em;margin:-.18em -.1em;will-change:transform;transition-delay:calc(var(--d)*42ms),calc(var(--d)*42ms + 1.4s)}
 .hero h1 .c.marca{transition-delay:calc(var(--d)*42ms + .15s),calc(var(--d)*42ms + 1.5s)}
 .intro-spark{position:absolute;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;color:var(--chispa);filter:drop-shadow(0 0 8px #ffe3a1) drop-shadow(0 0 26px var(--ignicion));opacity:0;pointer-events:none;z-index:4}
 .intro-spark svg{width:100%;height:100%;display:block}
@@ -194,9 +194,9 @@ html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,h
 .svc-card.c2{--bg:var(--ignicion);--fg:var(--carbon);--muted:#2a1608;--accent:var(--carbon)}
 .svc-card.c3{--bg:var(--blanco);--fg:var(--carbon);--muted:var(--ceniza-2);--accent:var(--ignicion);border:2px solid var(--carbon)}
 .svc-card.c4{--bg:var(--chispa);--fg:var(--carbon);--muted:#3a2a05;--accent:var(--cereza)}
-.svc-card h3{font-size:clamp(2.2rem,5vw,4.4rem);letter-spacing:-.045em;line-height:.95}
-.svc-card .sum{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--muted);max-width:44ch;margin-top:18px}
-.svc-card ul{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.svc-card h3{font-size:calc(clamp(2.2rem,5vw,4.4rem) * var(--k,1));letter-spacing:-.045em;line-height:.95}
+.svc-card .sum{font-size:calc(clamp(1.02rem,1.5vw,1.2rem) * var(--k,1));color:var(--muted);max-width:44ch;margin-top:calc(18px * var(--k,1))}
+.svc-card ul{list-style:none;margin:calc(24px * var(--k,1)) 0 0;padding:0;display:grid;gap:calc(10px * var(--k,1));font-size:calc(1rem * var(--k,1))}
 .svc-card li{display:flex;gap:12px;align-items:baseline;font-weight:500}
 .svc-card li::before{content:"";flex:none;width:9px;height:9px;background:var(--accent);transform:rotate(45deg) translateY(-1px)}
 .svc-card .ghost{position:absolute;right:clamp(18px,3vw,40px);bottom:clamp(10px,2vw,22px);z-index:-1;font-weight:800;font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:-.06em;line-height:1;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px var(--accent);opacity:.28;pointer-events:none}
@@ -210,7 +210,7 @@ html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,h
 .m-rings svg{width:34%;position:relative;--lm:var(--ignicion);--ls:var(--chispa);animation:bob 2.6s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-8px) scale(1.04)}}
 /* branding: el isotipo se dibuja */
-.m-draw svg{width:90%;overflow:visible}
+.m-draw svg{width:90%;overflow:visible;transform:translateY(-30%)}
 .m-draw .stroke{fill:none;stroke:var(--carbon);stroke-width:3;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 4s var(--ease) infinite}
 .m-draw .fill{fill:var(--carbon);opacity:0;animation:fillin 4s var(--ease) infinite}
 .m-draw .sp{fill:var(--blanco);transform-origin:24.7px -95px;animation:spk 4s var(--ease) infinite}
@@ -226,8 +226,8 @@ html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,h
 /* publicidad: barras */
 .m-bars{display:flex!important;align-items:flex-end;gap:8%;padding:12% 10%}
 .m-bars i{flex:1;background:var(--carbon);border-radius:10px 10px 4px 4px;height:var(--h);transform-origin:bottom;animation:grow 2.8s var(--ease) infinite alternate}
-.m-bars i:nth-child(1){--h:30%}.m-bars i:nth-child(2){--h:48%;animation-delay:.15s}.m-bars i:nth-child(3){--h:66%;animation-delay:.3s}.m-bars i:nth-child(4){--h:92%;background:var(--cereza);animation-delay:.45s}
-.m-bars svg{position:absolute;width:30%;right:6%;top:4%;color:var(--cereza);animation:spin 6s linear infinite}
+.m-bars i:nth-child(1){--h:22%}.m-bars i:nth-child(2){--h:38%;animation-delay:.15s}.m-bars i:nth-child(3){--h:54%;animation-delay:.3s}.m-bars i:nth-child(4){--h:70%;background:var(--cereza);animation-delay:.45s}
+.m-bars svg{position:absolute;width:22%;right:7%;top:2%;color:var(--cereza);animation:spin 6s linear infinite}
 @keyframes grow{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:900px){
@@ -238,7 +238,12 @@ html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,h
 @media (min-width:901px){
   .svc-pin.is-pinned{height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:var(--head);overflow:hidden}
   .svc-pin.is-pinned .svc-track{flex-direction:row;width:max-content;gap:28px;padding-bottom:0}
-  .svc-pin.is-pinned .svc-card{width:min(76vw,1040px);height:min(64vh,560px)}
+  .svc-pin.is-pinned{--ch:max(340px,min(calc(100svh - var(--head) - 150px),580px))}
+  .svc-pin.is-pinned .svc-card{width:min(76vw,1040px);height:var(--ch);padding:clamp(20px,4.4vh,56px) clamp(26px,4vw,56px)}
+  .svc-pin.is-pinned .svc-card h3{font-size:calc(clamp(1.7rem,min(4.4vw,6.6vh),4.4rem) * var(--k,1))}
+  .svc-pin.is-pinned .svc-card .sum{font-size:calc(clamp(.92rem,min(1.5vw,2.3vh),1.2rem) * var(--k,1));margin-top:calc(clamp(10px,1.8vh,18px) * var(--k,1))}
+  .svc-pin.is-pinned .svc-card ul{margin-top:calc(clamp(12px,2.4vh,24px) * var(--k,1));gap:calc(clamp(5px,1vh,10px) * var(--k,1));font-size:calc(clamp(.88rem,2.1vh,1rem) * var(--k,1))}
+  .svc-pin.is-pinned .motif{max-width:min(380px,calc(var(--ch) - 2 * clamp(20px,4.4vh,56px) - 8px))}
 }
 .extras{padding-block:clamp(60px,8vw,110px) 0;overflow:hidden}
 .extras h3{font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:26px}
@@ -2198,6 +2203,10 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
     const setActive = i => { cards.forEach((c,k)=>c.classList.toggle("is-active",k===i)); tabs.forEach((t,k)=>t.setAttribute("aria-current",k===i)); };
     if (desk){
       pin.classList.add("is-pinned");
+      const fitCards = () => cards.forEach(c => { let k = 1; c.style.setProperty("--k", 1); while (c.scrollHeight > c.clientHeight + 1 && k > .55){ k -= .04; c.style.setProperty("--k", k.toFixed(2)); } });
+      fitCards(); if (document.fonts) document.fonts.ready.then(() => { fitCards(); ScrollTrigger.refresh(); });
+      let fitT; const onRs = () => { clearTimeout(fitT); fitT = setTimeout(fitCards, 150); }; addEventListener("resize", onRs);
+      ctx.add(() => () => removeEventListener("resize", onRs));
       const dist = () => track.scrollWidth - pin.querySelector(".svc-viewport").clientWidth;
       const horiz = gsap.to(track, {x:() => -dist(), ease:"none", scrollTrigger:{trigger:pin, start:"top top", end:() => "+=" + dist(), pin:true, scrub:.7, invalidateOnRefresh:true, anticipatePin:1,
         onUpdate: self => { const i=Math.round(self.progress*(cards.length-1)); setActive(i); gsap.set(bar,{scaleX:.25+self.progress*.75}); }}});
