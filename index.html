@@ -1508,9 +1508,22 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
     if (first) first.focus({preventScroll:false});
     return !first;
   }
-  function renderDone(box, form, text){
+  /* Dirección del Apps Script que guarda el brief en Google Sheets y avisa por correo.
+     Vacía = modo respaldo (copiar el mensaje y pegarlo en el chat de Instagram). */
+  const BRIEF_ENDPOINT = "";
+  async function deliverBrief(data){
+    if (!BRIEF_ENDPOINT) return false;
+    try{
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 12000);
+      await fetch(BRIEF_ENDPOINT, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify({tipo:"Brief de plan personalizado", ...data}), signal: ctl.signal});
+      clearTimeout(t); return true;
+    }catch(e){ return false; }
+  }
+  function renderDone(box, form, text, sent){
     form.hidden = true; box.hidden = false;
-    {
+    if (sent){
+      box.innerHTML = `<h3>¡Brief recibido!</h3><p>Ya tenemos tu información. Te escribimos en un máximo de 48 horas para confirmar fecha, hora y enlace de tu reunión.</p><div class="row"><a class="btn" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener">Seguir @wearemignite</a><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Escribirnos por Instagram</a></div>`;
+    } else {
       box.innerHTML = `<h3>Tu solicitud está lista</h3><p>Último paso: envíanosla por mensaje directo para que quede registrada. Copia el texto y pégalo en el chat de @wearemignite.</p><div class="msg-box" id="${box.id}-txt"></div><div class="row"><button class="btn" type="button" data-copy>Copiar mensaje</button><a class="btn btn-ghost" href="https://ig.me/m/wearemignite" target="_blank" rel="noopener">Abrir chat de Instagram</a></div><p class="copy-status" aria-live="polite"></p>`;
       $(".msg-box", box).textContent = text;
       $("[data-copy]", box).addEventListener("click", () => {
@@ -1539,12 +1552,15 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   next.addEventListener("click", () => { if (validate(stepsW[cur])) show(cur+1); });
   back.addEventListener("click", () => show(cur-1));
   brief.addEventListener("keydown", e => { if (e.key==="Enter" && e.target.tagName!=="TEXTAREA" && cur<stepsW.length-1){ e.preventDefault(); next.click(); } });
-  brief.addEventListener("submit", e => {
+  brief.addEventListener("submit", async e => {
     e.preventDefault();
     if (!validate(stepsW[cur])) return;
-    const data = collect(brief);
+    const data = collect(brief), label = send.textContent;
+    send.disabled = true; send.textContent = "Enviando…";
+    const sent = await deliverBrief(data);
+    send.disabled = false; send.textContent = label;
     $(".wiz-prog").hidden = true;
-    renderDone($("#brief-done"), brief, summary("Hola MIGNITE, quiero agendar mi Sesión de Ignición para un plan personalizado.", data));
+    renderDone($("#brief-done"), brief, summary("Hola MIGNITE, quiero agendar mi Sesión de Ignición para un plan personalizado.", data), sent);
     if (window.gsap && !reduce) gsap.from($$("#brief-done > *"), {y:30, opacity:0, duration:.7, ease:"power3.out", stagger:.08});
   });
   const syncBriefLevel = name => { const r = $(`#p-levels input[value="${name}"]`); if (r) r.checked = true; };
