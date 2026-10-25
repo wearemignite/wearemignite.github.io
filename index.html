@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;0,800;1,800&display=swap">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "MIGNITE", "alternateName": "MIGNITE Agencia de Marketing Digital", "description": "MIGNITE es una agencia de marketing digital y publicidad en Santiago de los Caballeros, República Dominicana. Campañas publicitarias, branding, creación de contenido y publicidad digital para marcas de RD y el mundo.", "url": "https://wearemignite.github.io/", "slogan": "Encendemos tu marca.", "founder": {"@type": "Person", "name": "Mike Daniels", "jobTitle": "Founder & Creative Director"}, "address": {"@type": "PostalAddress", "addressLocality": "Santiago de los Caballeros", "addressCountry": "DO"}, "areaServed": ["República Dominicana", "Worldwide"], "sameAs": ["https://www.instagram.com/wearemignite/", "https://www.linkedin.com/company/wearemignite"], "priceRange": "Desde RD$10,000 al mes", "knowsAbout": ["Marketing digital", "Publicidad", "Branding", "Creación de contenido", "Publicidad en redes sociales"]}</script>
-<style>
+<script>(function(){try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.hash&&!(window.scrollY>0)){document.documentElement.classList.add("intro")}}catch(e){}})()</script><style>
 /* Layout: bandas a todo el ancho que alternan carbón → blanco → naranja; texto alineado a la izquierda; cada sección reacciona al scroll o a la selección. */
 :root{
   --carbon:#111111;      /* Carbón (manual de marca) */
@@ -131,6 +131,16 @@ p{margin:0}
 .hero-where span+span{color:var(--ceniza)}
 .hero h1{font-size:clamp(2.9rem,14vw,12.6rem);letter-spacing:-.05em;line-height:.86;margin-left:-.05em}
 .hero h1 .ln{display:block}
+.hero h1 .wd{display:inline-block;white-space:nowrap}
+.hero h1 .c{display:inline-block;will-change:transform;transition-delay:calc(var(--d)*42ms),calc(var(--d)*42ms + 1.4s)}
+.hero h1 .c.marca{transition-delay:calc(var(--d)*42ms + .15s),calc(var(--d)*42ms + 1.5s)}
+.intro-spark{position:absolute;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;color:var(--chispa);filter:drop-shadow(0 0 8px #ffe3a1) drop-shadow(0 0 26px var(--ignicion));opacity:0;pointer-events:none;z-index:4}
+.intro-spark svg{width:100%;height:100%;display:block}
+.intro-ring{position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;border:3px solid var(--chispa);box-shadow:0 0 26px var(--ignicion),inset 0 0 18px rgba(255,102,0,.6);opacity:0;pointer-events:none;z-index:4}
+html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,html.intro .hero .hero-bottom,html.intro .hero .ticker{opacity:0}
+html.intro .hero h1 .c{opacity:0}
+html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,html.intro .hero .hero-bottom,html.intro .hero .ticker,html.intro .hero h1 .c{animation:introSafe 0s 9s forwards}
+@keyframes introSafe{to{opacity:1}}
 .fire{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.5);background-image:linear-gradient(90deg,var(--blanco) 0 44%,var(--chispa) 48%,var(--ignicion) 52%,rgba(255,255,255,0) 58%);background-size:260% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;transition:background-position 1.9s var(--ease),-webkit-text-stroke-color 1s 1.4s}
 .fire.marca{background-image:linear-gradient(90deg,var(--ignicion) 0 44%,var(--chispa) 48%,var(--cereza) 52%,rgba(255,255,255,0) 58%);transition-delay:.55s,1.9s}
 .lit .fire{background-position:0 0;-webkit-text-stroke-color:transparent}
@@ -834,12 +844,14 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 <main>
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <canvas id="sparks" aria-hidden="true"></canvas>
+  <div class="intro-ring" id="intro-ring" aria-hidden="true"></div>
+  <div class="intro-spark" id="intro-spark" aria-hidden="true"><svg><use href="#spark"/></svg></div>
   <div class="wrap">
     <div class="hero-top">
       <a class="beta-pill" href="#beta"><i></i>Fase beta abierta: primeros cupos con descuento</a>
       <p class="hero-where"><span>Partner de marketing digital en República Dominicana.</span> <span>Trabajamos con marcas a nivel internacional.</span></p>
     </div>
-    <h1 id="hero-title"><span class="ln fire">Encendemos</span><span class="ln"><span class="fire">tu </span><span class="fire marca">marca.</span></span></h1>
+    <h1 id="hero-title" aria-label="Encendemos tu marca"><span class="ln" aria-hidden="true"><span class="wd"><span class="fire c" style="--d:0">E</span><span class="fire c" style="--d:1">n</span><span class="fire c" style="--d:2">c</span><span class="fire c" style="--d:3">e</span><span class="fire c" style="--d:4">n</span><span class="fire c" style="--d:5">d</span><span class="fire c" style="--d:6">e</span><span class="fire c" style="--d:7">m</span><span class="fire c" style="--d:8">o</span><span class="fire c" style="--d:9">s</span></span></span><span class="ln" aria-hidden="true"><span class="wd"><span class="fire c" style="--d:10">t</span><span class="fire c" style="--d:11">u</span></span> <span class="wd"><span class="fire c marca" style="--d:12">m</span><span class="fire c marca" style="--d:13">a</span><span class="fire c marca" style="--d:14">r</span><span class="fire c marca" style="--d:15">c</span><span class="fire c marca" style="--d:16">a</span></span></span></h1>
     <div class="hero-bottom">
       <div>
         <p class="lead">Estrategia, contenido y publicidad para marcas que quieren que la gente se detenga, las recuerde y les compre. Publicar sin una idea detrás no construye nada; nosotros le damos dirección.</p>
@@ -1463,8 +1475,11 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 
   /* titular que se enciende */
   const hero = $(".hero");
+  const root = document.documentElement;
+  const introOn = root.classList.contains("intro") && typeof window.gsap !== "undefined" && !reduce;
+  if (!introOn) root.classList.remove("intro");
   if (reduce) hero.classList.add("lit");
-  else Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r=>setTimeout(r,900))]).then(()=>setTimeout(()=>requestAnimationFrame(()=>hero.classList.add("lit")),250));
+  else if (!introOn) Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r=>setTimeout(r,900))]).then(()=>setTimeout(()=>requestAnimationFrame(()=>hero.classList.add("lit")),250));
 
   /* chispas del hero */
   const cvs = $("#sparks"), ctx = cvs.getContext("2d");
@@ -1497,7 +1512,48 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   hero.addEventListener("pointermove", e => { if (reduce) return; const [x,y]=pos(e); const dx=last?x-last[0]:0, dy=last?y-last[1]:0; last=[x,y]; for(let i=0;i<(e.pointerType==="touch"?3:2);i++) spark(x,y,dx*.18+(Math.random()-.5)*3,dy*.18+(Math.random()-.5)*3-1,0); }, {passive:true});
   hero.addEventListener("pointerleave", () => last=null);
   hero.addEventListener("pointerdown", e => { if (reduce || e.target.closest("a,button")) return; const [x,y]=pos(e); burst(x,y,small?34:60,6); });
-  if (!reduce) setTimeout(() => { const t=$("#hero-title").getBoundingClientRect(), r=cvs.getBoundingClientRect(); burst(t.left-r.left+t.width*.62, t.top-r.top+t.height*.5, small?40:80, 7); }, 1500);
+  if (!reduce && !introOn) setTimeout(() => { const t=$("#hero-title").getBoundingClientRect(), r=cvs.getBoundingClientRect(); burst(t.left-r.left+t.width*.62, t.top-r.top+t.height*.5, small?40:80, 7); }, 1500);
+
+  /* intro: una chispa aparece, a los 2 segundos prende y de ella se forma el titular */
+  if (introOn){
+    const h1 = $("#hero-title"), cs = $$(".c", h1), sp = $("#intro-spark"), ring = $("#intro-ring");
+    const others = [$(".site-head"), $(".hero .beta-pill"), $(".hero .hero-where"), $(".hero .hero-bottom"), $(".hero .ticker")].filter(Boolean);
+    let done = false, tl = null;
+    const finish = () => {
+      if (done) return; done = true; if (tl) tl.kill();
+      gsap.killTweensOf([...cs, ...others, sp, ring]);
+      gsap.set([sp, ring], {opacity:0});
+      gsap.set(cs, {clearProps:"transform,opacity"}); gsap.set(others, {clearProps:"transform,opacity"});
+      hero.classList.add("lit"); root.classList.remove("intro");
+    };
+    const go = () => {
+      const hr = hero.getBoundingClientRect(), hb = h1.getBoundingClientRect();
+      const sx = hb.left + hb.width*.5, sy = hb.top + hb.height*.5, lx = sx - hr.left, ly = sy - hr.top;
+      const from = cs.map(c => { const r = c.getBoundingClientRect(); return {x: sx - (r.left + r.width/2), y: sy - (r.top + r.height/2)}; });
+      gsap.set(sp, {left:lx, top:ly, opacity:0, scale:.15}); gsap.set(ring, {left:lx, top:ly, xPercent:-50, yPercent:-50, width:24, height:24, opacity:0});
+      gsap.set(others, {opacity:0, y:26}); gsap.set(cs, {opacity:0});
+      const trail = () => { for (let k=0;k<7;k++){ const c = cs[Math.random()*cs.length|0], r = c.getBoundingClientRect(); if (+gsap.getProperty(c,"opacity") > .15) spark(r.left - hr.left + r.width/2, r.top - hr.top + r.height/2, (Math.random()-.5)*3, (Math.random()-.5)*3 - 1, 0); } };
+      tl = gsap.timeline({onComplete: finish});
+      /* 0 a 2 s: la chispa aparece y parpadea */
+      tl.to(sp, {opacity:.95, scale:.55, duration:.6, ease:"power2.out"}, .3)
+        .to(sp, {opacity:.5, scale:.42, rotation:12, duration:.13, repeat:11, yoyo:true, ease:"none"}, .9);
+      [.7,1,1.25,1.5,1.7,1.85].forEach(t => tl.call(() => { for (let k=0;k<3;k++) spark(lx, ly, (Math.random()-.5)*2.6, -Math.random()*2.4 - .4, 0); }, null, t));
+      /* 2 s: se ilumina */
+      tl.addLabel("ign", 2)
+        .to(sp, {scale:3.4, opacity:1, rotation:90, duration:.34, ease:"power3.in"}, "ign")
+        .call(() => burst(lx, ly, small ? 70 : 130, 9), null, "ign+=.32")
+        .fromTo(ring, {width:24, height:24, opacity:1}, {width: Math.max(hb.width, innerWidth)*1.9, height: Math.max(hb.width, innerWidth)*1.9, opacity:0, duration:1.1, ease:"power2.out"}, "ign+=.32")
+        .to(sp, {scale:.2, opacity:0, duration:.45, ease:"power2.in"}, "ign+=.34")
+        /* de la chispa salen las letras y se forman en su lugar */
+        .fromTo(cs, {x:i => from[i].x, y:i => from[i].y, scale:0, rotation:() => gsap.utils.random(-260,260), opacity:0},
+                    {x:0, y:0, scale:1, rotation:0, opacity:1, duration:1.25, ease:"expo.out", stagger:{each:.032, from:"center"}, onUpdate:trail}, "ign+=.34")
+        .call(() => hero.classList.add("lit"), null, "ign+=.95")
+        .to(others, {opacity:1, y:0, duration:.85, stagger:.12, ease:"power3.out"}, "ign+=1.55");
+    };
+    Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r => setTimeout(r, 900))]).then(() => requestAnimationFrame(go));
+    ["wheel","touchstart","keydown","pointerdown"].forEach(ev => addEventListener(ev, finish, {once:true, passive:true}));
+    setTimeout(finish, 9000);
+  }
 
   /* manifiesto ligado al scroll */
   const man = $("#manifiesto"), clamp = v => Math.max(0, Math.min(1, v));
