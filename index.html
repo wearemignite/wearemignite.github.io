@@ -730,6 +730,29 @@ input::placeholder,textarea::placeholder{color:#9b918a}
 .final .row{display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end;justify-content:space-between;margin-top:clamp(30px,4vw,56px)}
 .final .lead{color:#2a1608}
 .final .iso-bg{position:absolute;right:-8%;top:-10%;width:min(62vw,720px);height:auto;aspect-ratio:286/168;opacity:.13;pointer-events:none;--lm:var(--carbon);--ls:var(--carbon)}
+.final{isolation:isolate}
+.final>.wrap{position:relative;z-index:2}
+.final h2{position:relative}
+.fw{display:inline-block;white-space:nowrap}
+.fc{display:inline-block;color:var(--carbon);will-change:transform}
+.f-marq{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;justify-content:space-between;padding-block:3% 2%;pointer-events:none;overflow:hidden}
+.f-row{display:flex;align-items:center;width:max-content;font-weight:800;font-size:clamp(4.5rem,15vw,14rem);line-height:.95;letter-spacing:-.05em;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(17,17,17,.16);white-space:nowrap;will-change:transform}
+.f-row span{padding-right:.35em;display:flex;align-items:center;gap:.35em}
+.f-row i{display:inline-block;width:.34em;height:.34em;background:rgba(17,17,17,.16);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.f-fx{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.mecha{position:relative;width:100%;align-self:stretch;height:64px;margin-top:clamp(16px,2.6vw,34px)}
+.mecha .f-line{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mecha path{fill:none;stroke-linecap:round}
+.mecha .f-ash{stroke:rgba(17,17,17,.2);stroke-width:3;stroke-dasharray:2 9}
+.mecha .f-rope{stroke:var(--carbon);stroke-width:7;stroke-dasharray:1 1;stroke-dashoffset:0}
+.f-head{position:absolute;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;color:var(--chispa);filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 20px var(--cereza));pointer-events:none;opacity:0}
+.f-head svg{width:100%;height:100%;display:block}
+.f-cap{position:absolute;left:0;top:-8px;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(17,17,17,.7);display:flex;align-items:center;gap:10px;transition:opacity .3s}
+.f-cap svg{width:16px;height:16px;animation:nudge 1.1s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(5px)}}
+.final .btn.lit{box-shadow:0 0 0 6px rgba(255,194,51,.55),0 0 70px 12px rgba(255,194,51,.75);animation:litpulse 1.4s ease-in-out infinite}
+@keyframes litpulse{50%{box-shadow:0 0 0 12px rgba(255,194,51,.25),0 0 90px 22px rgba(255,194,51,.45)}}
+@media (prefers-reduced-motion:reduce){.mecha,.f-fx,.f-cap{display:none}.f-row{transform:none!important}}
 .final .btn{--bg:var(--carbon);--fg:var(--blanco);min-height:64px;font-size:1.08rem}
 .final .btn:hover{color:var(--chispa)}
 .final .btn-ghost{--bg:transparent;--fg:var(--carbon);border-color:var(--carbon)}
@@ -1321,9 +1344,19 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 </section>
 
 <section class="final" id="contacto" aria-labelledby="final-title">
+  <div class="f-marq" aria-hidden="true">
+    <div class="f-row" id="f-row1"><span>Encendemos<i></i>tu marca<i></i></span><span>Encendemos<i></i>tu marca<i></i></span><span>Encendemos<i></i>tu marca<i></i></span><span>Encendemos<i></i>tu marca<i></i></span></div>
+    <div class="f-row" id="f-row2"><span>Lo encendemos<i></i>ahora<i></i></span><span>Lo encendemos<i></i>ahora<i></i></span><span>Lo encendemos<i></i>ahora<i></i></span><span>Lo encendemos<i></i>ahora<i></i></span></div>
+  </div>
   <svg class="iso-bg logo-svg" viewBox="-4 -164 286 168" aria-hidden="true"><use href="#iso" x="-4" y="-164" width="286" height="168"/></svg>
+  <canvas class="f-fx" id="final-fx" aria-hidden="true"></canvas>
   <div class="wrap">
     <h2 id="final-title" class="split">¿Lo encendemos?</h2>
+    <div class="mecha" id="mecha" aria-hidden="true">
+      <span class="f-cap" id="f-cap">La mecha ya corre. Sigue bajando<svg><use href="#ico-arrow" transform="rotate(90 12 12)"/></svg></span>
+      <svg class="f-line" id="f-line"><path class="f-ash" id="f-ash"/><path class="f-rope" id="f-rope" pathLength="1"/></svg>
+      <i class="f-head" id="f-head"><svg><use href="#spark"/></svg></i>
+    </div>
     <div class="row">
       <p class="lead">Cuéntanos qué quieres lograr con tu marca. El diagnóstico va por nuestra cuenta.</p>
       <div class="ctas" style="margin:0">
@@ -1989,6 +2022,108 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
       b.addEventListener("pointerleave", () => gsap.to(b,{x:0,y:0,duration:.7,ease:"elastic.out(1,.4)"}));
     });
   }
+
+
+  /* ===== cierre: ¿Lo encendemos? (mecha, brasas y letras vivas) ===== */
+  (() => {
+    const sec = $("#contacto"), h2 = $("#final-title"); if (!sec || !h2 || reduce) return;
+    const txt = h2.textContent.trim();
+    h2.classList.remove("split"); h2.setAttribute("aria-label", txt);
+    h2.innerHTML = txt.split(" ").map(w => `<span class="fw" aria-hidden="true">${[...w].map(c => `<span class="fc">${c}</span>`).join("")}</span>`).join(" ");
+    const chars = $$(".fc", h2);
+    let ready = false;
+
+    /* entrada: las letras caen y se calientan de blanco a carbón */
+    gsap.fromTo(chars, {yPercent:130, rotate:() => gsap.utils.random(-28,28), opacity:0, color:"#ffffff"},
+      {yPercent:0, rotate:0, opacity:1, duration:1.05, ease:"back.out(1.7)", stagger:.045, scrollTrigger:{trigger:h2, start:"top 88%"},
+       onComplete:() => { ready = true; gsap.to(chars, {color:"#111111", duration:.9, stagger:.04, ease:"power2.out"}); }});
+
+    /* canvas de brasas y chispas */
+    const cv = $("#final-fx"), ctx = cv.getContext("2d");
+    let W = 0, H = 0, parts = [], vis = false, raf = 0;
+    const COLS = ["#FFC233","#FFFFFF","#CC0000","#111111","#FFE8A8"];
+    const size = () => { const r = sec.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); };
+    const spark = (x, y, n, pow = 1, ang = 0, spread = Math.PI*2) => {
+      for (let i=0;i<n;i++){ const a = ang + (Math.random()-.5)*spread, v = (2 + Math.random()*7)*pow;
+        parts.push({t:"s", x, y, px:x, py:y, vx:Math.cos(a)*v, vy:Math.sin(a)*v - 1.6*pow, life:1, dec:.011+Math.random()*.02, r:1.6+Math.random()*3.2, c:COLS[Math.random()*COLS.length|0]}); }
+      if (parts.length > 700) parts.splice(0, parts.length - 700);
+    };
+    const ember = () => parts.push({t:"e", x:Math.random()*W, y:H+10, vx:(Math.random()-.5)*.6, vy:-(.6+Math.random()*1.7), life:1, dec:.0022+Math.random()*.003, r:1.4+Math.random()*3.4, ph:Math.random()*6.28, c:["#111111","#CC0000","#FFE8A8","#FFFFFF"][Math.random()*4|0]});
+    const local = el => { const a = el.getBoundingClientRect(), b = sec.getBoundingClientRect(); return [a.left - b.left + a.width/2, a.top - b.top + a.height/2]; };
+
+    /* carteles de fondo que corren y reaccionan al scroll */
+    const row1 = $("#f-row1"), row2 = $("#f-row2");
+    let x1 = 0, x2 = -9999, vel = 0;
+    ScrollTrigger.create({trigger:sec, start:"top bottom", end:"bottom top", onUpdate:s => { vel = s.getVelocity(); }});
+
+    const frame = () => {
+      raf = requestAnimationFrame(frame);
+      ctx.clearRect(0, 0, W, H);
+      if (Math.random() < .4) ember();
+      for (let i = parts.length - 1; i >= 0; i--){
+        const p = parts[i]; p.life -= p.dec;
+        if (p.life <= 0 || p.y < -20 || p.y > H + 40){ parts.splice(i,1); continue; }
+        if (p.t === "s"){ p.px = p.x; p.py = p.y; p.vy += .2; p.vx *= .985; p.x += p.vx; p.y += p.vy;
+          ctx.globalAlpha = Math.min(1, p.life*1.4); ctx.strokeStyle = p.c; ctx.lineWidth = p.r; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+        } else { p.ph += .04; p.x += p.vx + Math.sin(p.ph)*.45; p.y += p.vy;
+          ctx.globalAlpha = p.life*.85; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r*(.5 + p.life*.5), 0, 6.283); ctx.fill(); }
+      }
+      ctx.globalAlpha = 1;
+      const v = Math.max(-3500, Math.min(3500, vel)); vel *= .92;
+      const hw1 = row1.scrollWidth/2, hw2 = row2.scrollWidth/2;
+      if (x2 === -9999) x2 = -hw2/2;
+      const sp = .7 + Math.abs(v)*.006;
+      x1 -= sp; x2 += sp; if (x1 <= -hw1) x1 += hw1; if (x2 >= 0) x2 -= hw2;
+      const sk = Math.max(-9, Math.min(9, v*.0035));
+      row1.style.transform = `translate3d(${x1}px,0,0) skewX(${-sk}deg)`; row2.style.transform = `translate3d(${x2}px,0,0) skewX(${-sk}deg)`;
+    };
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis){ size(); if (!raf) frame(); } else { cancelAnimationFrame(raf); raf = 0; } }, {rootMargin:"120px"}).observe(sec);
+    addEventListener("resize", () => { if (vis) size(); buildFuse(); });
+
+    /* la mecha: avanza con el scroll y enciende el botón */
+    const fuse = $("#mecha"), rope = $("#f-rope"), ash = $("#f-ash"), head = $("#f-head"), line = $("#f-line"), cap = $("#f-cap");
+    const btn = $(".final .btn.mag"); let L = 1, prog = 0, lit = false, lastP = 0;
+    function buildFuse(){
+      const w = Math.max(260, fuse.clientWidth), h = 64, seg = Math.max(90, Math.min(190, w/6));
+      let d = `M0 ${h/2}`, x = 0, up = true;
+      while (x < w){ const nx = Math.min(w, x + seg), amp = up ? -22 : 22;
+        d += ` C ${x+(nx-x)*.35} ${h/2+amp}, ${x+(nx-x)*.65} ${h/2+amp}, ${nx} ${h/2}`; x = nx; up = !up; }
+      line.setAttribute("viewBox", `0 0 ${w} ${h}`); rope.setAttribute("d", d); ash.setAttribute("d", d); L = rope.getTotalLength(); setFuse(prog, true);
+    }
+    function setFuse(p, silent){
+      prog = p; rope.style.strokeDashoffset = -p;
+      const pt = rope.getPointAtLength(Math.max(.001, p) * L);
+      gsap.set(head, {x:pt.x, y:pt.y, opacity: p > .004 && p < .999 ? 1 : 0, rotation: p*1440});
+      cap.style.opacity = p > .02 ? 0 : 1;
+      if (!silent && vis && p > lastP && p < .999){ const [cx, cy] = local(head); spark(cx, cy, 2, .7, -Math.PI/2, Math.PI*1.2); }
+      lastP = p;
+      if (p >= .995 && !lit){ lit = true; ignite(); } else if (p < .96 && lit){ lit = false; btn.classList.remove("lit"); }
+    }
+    function ignite(){
+      const [bx, by] = local(btn); spark(bx, by, 90, 1.25); spark(bx, by, 40, .6);
+      btn.classList.add("lit");
+      gsap.fromTo(btn, {scale:.88}, {scale:1, duration:.9, ease:"elastic.out(1,.35)"});
+      gsap.fromTo(chars, {color:"#ffffff", y:-6}, {color:"#111111", y:0, duration:.8, stagger:.035, ease:"power2.out"});
+    }
+    buildFuse();
+    ScrollTrigger.create({trigger:fuse, start:"top 82%", end:"top 38%", scrub:.35, onUpdate:s => setFuse(s.progress)});
+
+    /* letras vivas: se inflan cerca del cursor; clic o toque = estallido */
+    if (fine){
+      sec.addEventListener("pointermove", e => {
+        const r = sec.getBoundingClientRect();
+        if (ready){ chars.forEach(c => { const b = c.getBoundingClientRect(), dx = e.clientX - (b.left + b.width/2), dy = e.clientY - (b.top + b.height/2), d = Math.hypot(dx, dy), k = Math.max(0, 1 - d/200);
+          gsap.to(c, {scale:1 + k*.5, y:-k*28, rotate:-dx/200*k*14, duration:.35, ease:"power3.out", overwrite:"auto"}); }); }
+        if (vis && Math.random() < .55) spark(e.clientX - r.left, e.clientY - r.top, 1, .35);
+      });
+      sec.addEventListener("pointerleave", () => gsap.to(chars, {scale:1, y:0, rotate:0, duration:.9, ease:"elastic.out(1,.4)", stagger:.015, overwrite:"auto"}));
+    }
+    sec.addEventListener("pointerdown", e => {
+      if (e.target.closest("a,button")) return;
+      const r = sec.getBoundingClientRect(); spark(e.clientX - r.left, e.clientY - r.top, 46, 1);
+      if (ready) gsap.fromTo(chars, {scale:1.35, color:"#ffffff"}, {scale:1, color:"#111111", duration:.9, stagger:.04, ease:"elastic.out(1,.4)", overwrite:"auto"});
+    });
+  })();
 
   const mm = gsap.matchMedia();
   mm.add({desk:"(min-width: 901px)", mob:"(max-width: 900px)", motion:"(prefers-reduced-motion: no-preference)"}, ctx => {
