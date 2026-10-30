@@ -261,6 +261,12 @@ html.intro .site-head,html.intro .hero .beta-pill,html.intro .hero .hero-where,h
 .marquee span svg{width:14px;height:14px;color:var(--ignicion)}
 .marquee span:hover svg{color:var(--carbon)}
 
+.marquee span{position:relative}
+.marquee span.is-new{border-color:var(--ignicion);background:rgba(255,102,0,.08)}
+.new-tag{position:absolute;right:10px;top:-13px;padding:3px 9px;border-radius:var(--r-pill);background:var(--ignicion);color:var(--carbon);font-size:.68rem;font-weight:800;letter-spacing:.04em;line-height:1.2;text-transform:uppercase;transform:rotate(-6deg);box-shadow:0 6px 14px -4px rgba(255,102,0,.6);animation:newfloat 2.4s ease-in-out infinite;pointer-events:none}
+@keyframes newfloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-4px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.new-tag{animation:none}}
+
 /* ===== PROCESO ===== */
 .process{--f:1;overflow-x:clip}
 .proc-grid{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:40px 70px;align-items:start}
@@ -961,7 +967,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
   </div>
   <div class="extras" aria-label="Otros servicios">
     <div class="wrap"><h3>También nos encargamos de</h3></div>
-    <div class="marquee" data-dir="-1"><span><svg><use href="#spark"/></svg>Gestión de redes y community management</span><span><svg><use href="#spark"/></svg>Calendario editorial</span><span><svg><use href="#spark"/></svg>Diseño publicitario</span><span><svg><use href="#spark"/></svg>Producción y edición de video</span><span><svg><use href="#spark"/></svg>Animación</span><span><svg><use href="#spark"/></svg>Gestión de redes y community management</span><span><svg><use href="#spark"/></svg>Calendario editorial</span><span><svg><use href="#spark"/></svg>Diseño publicitario</span><span><svg><use href="#spark"/></svg>Producción y edición de video</span><span><svg><use href="#spark"/></svg>Animación</span></div>
+    <div class="marquee" data-dir="-1"><span class="is-new"><svg><use href="#spark"/></svg>Páginas web<b class="new-tag">¡Nuevo!</b></span><span><svg><use href="#spark"/></svg>Gestión de redes y community management</span><span><svg><use href="#spark"/></svg>Calendario editorial</span><span><svg><use href="#spark"/></svg>Diseño publicitario</span><span><svg><use href="#spark"/></svg>Producción y edición de video</span><span><svg><use href="#spark"/></svg>Animación</span><span class="is-new"><svg><use href="#spark"/></svg>Páginas web<b class="new-tag">¡Nuevo!</b></span><span><svg><use href="#spark"/></svg>Gestión de redes y community management</span><span><svg><use href="#spark"/></svg>Calendario editorial</span><span><svg><use href="#spark"/></svg>Diseño publicitario</span><span><svg><use href="#spark"/></svg>Producción y edición de video</span><span><svg><use href="#spark"/></svg>Animación</span></div>
     <div class="marquee" data-dir="1"><span><svg><use href="#spark"/></svg>Organización y promoción de eventos</span><span><svg><use href="#spark"/></svg>Gestión de anuncios pagados</span><span><svg><use href="#spark"/></svg>Reportes y análisis de métricas</span><span><svg><use href="#spark"/></svg>IA y automatizaciones de marketing</span><span><svg><use href="#spark"/></svg>Organización y promoción de eventos</span><span><svg><use href="#spark"/></svg>Gestión de anuncios pagados</span><span><svg><use href="#spark"/></svg>Reportes y análisis de métricas</span><span><svg><use href="#spark"/></svg>IA y automatizaciones de marketing</span></div>
   </div>
   <div style="height:clamp(80px,10vw,140px)"></div>
