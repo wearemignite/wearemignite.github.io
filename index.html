@@ -2342,7 +2342,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 const EP="https://script.google.com/macros/s/AKfycbwyMh4bkxO80edQsfYOFIOXYxHCrMFzjdwsHZbCirpdlaG2Am5QSJMQoKYO9Z3WNPdmDQ/exec";
 let sid="";try{sid=sessionStorage.getItem("mg_sid")||"";if(!sid){sid=Math.random().toString(36).slice(2,12);sessionStorage.setItem("mg_sid",sid)}}catch(_){sid=Math.random().toString(36).slice(2,12)}
 let cur=0;const show=n=>{if(n<1)n=1;if(n===cur)return;cur=n;el.textContent=n;box.hidden=false};
-const ping=async()=>{if(document.hidden)return;try{const r=await fetch(EP+"?sid="+sid,{cache:"no-store"});const j=await r.json();if(j&&typeof j.n==="number")show(j.n)}catch(_){}};
+const ping=()=>{if(document.hidden)return;const cb="mgcb"+Date.now(),s=document.createElement("script");window[cb]=j=>{delete window[cb];s.remove();if(j&&typeof j.n==="number")show(j.n)};s.onerror=()=>{delete window[cb];s.remove()};s.src=EP+"?sid="+sid+"&cb="+cb;document.head.appendChild(s)};
 ping();setInterval(ping,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)ping()});})();
 </script>
 </body>
