@@ -809,8 +809,9 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 @media (max-width:420px){.live-tag{display:none}}
 .ig-n{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
 .live.ig{text-decoration:none}
-.live.on{display:none}
-@media (min-width:1600px){.live.on:not([hidden]){display:inline-flex}}
+.live[hidden]{display:none}
+.live.ig{display:none}
+@media (min-width:1600px){.live.ig{display:inline-flex}}
 @media (max-width:900px){.ig-n::after{content:" en IG";font-weight:500;color:#e9e2dc}}
 </style>
 </head>
