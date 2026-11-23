@@ -807,6 +807,11 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 .live-tag{font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.08em;padding:3px 6px;border-radius:4px;background:#CC0000;color:#fff;margin-left:2px}
 @media (max-width:900px){.live-t{display:none}.live-n::after{content:" en línea";font-weight:500;color:#e9e2dc}.live{padding:6px 10px;font-size:.74rem}.brand-grp{gap:10px}}
 @media (max-width:420px){.live-tag{display:none}}
+.ig-n{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.live.ig{text-decoration:none}
+.live.on{display:none}
+@media (min-width:1600px){.live.on:not([hidden]){display:inline-flex}}
+@media (max-width:900px){.ig-n::after{content:" en IG";font-weight:500;color:#e9e2dc}}
 </style>
 </head>
 <body>
@@ -841,7 +846,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 
 <header class="site-head">
   <div class="wrap head-row">
-    <div class="brand-grp"><a class="brand" href="#inicio" aria-label="MIGNITE, ir al inicio"><svg class="logo-svg" viewBox="-4 -190 888 250" aria-hidden="true"><use href="#logo-h" x="-4" y="-190" width="888" height="250"/></svg></a><span class="live" id="live" hidden title="Visitantes en este momento"><i class="live-dot"></i><b class="live-n" id="live-n">1</b><span class="live-t"> en línea</span></span></div>
+    <div class="brand-grp"><a class="brand" href="#inicio" aria-label="MIGNITE, ir al inicio"><svg class="logo-svg" viewBox="-4 -190 888 250" aria-hidden="true"><use href="#logo-h" x="-4" y="-190" width="888" height="250"/></svg></a><a class="live ig" id="ig" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener" aria-label="Seguidores de @wearemignite en Instagram"><i class="live-dot"></i><b class="ig-n" id="ig-n">18,9K</b><span class="live-t"> seguidores en Instagram</span></a><span class="live on" id="live" hidden title="Visitantes en este momento"><i class="live-dot"></i><b class="live-n" id="live-n">1</b><span class="live-t"> en línea</span></span></div>
     <nav class="nav" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
@@ -2342,7 +2347,8 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 const EP="https://script.google.com/macros/s/AKfycbwyMh4bkxO80edQsfYOFIOXYxHCrMFzjdwsHZbCirpdlaG2Am5QSJMQoKYO9Z3WNPdmDQ/exec";
 let sid="";try{sid=sessionStorage.getItem("mg_sid")||"";if(!sid){sid=Math.random().toString(36).slice(2,12);sessionStorage.setItem("mg_sid",sid)}}catch(_){sid=Math.random().toString(36).slice(2,12)}
 let cur=0;const show=n=>{if(n<1)n=1;if(n===cur)return;cur=n;el.textContent=n;box.hidden=false};
-const read=(k=0)=>{const cb="mgcb"+Date.now()+k,s=document.createElement("script");window[cb]=j=>{delete window[cb];s.remove();if(j&&typeof j.n==="number")show(j.n)};s.onerror=()=>{delete window[cb];s.remove();if(k<3)setTimeout(()=>read(k+1),3000)};s.src=EP+"?cb="+cb;document.head.appendChild(s)};
+const igEl=document.getElementById("ig-n"),fmt=v=>v>=1000?(v/1000).toFixed(v>=100000?0:1).replace(".",",")+"K":String(v),setIg=v=>{if(igEl)igEl.textContent=fmt(v)};
+const read=(k=0)=>{const cb="mgcb"+Date.now()+k,s=document.createElement("script");window[cb]=j=>{delete window[cb];s.remove();if(j&&typeof j.n==="number")show(j.n);if(j&&j.s>0)setIg(j.s)};s.onerror=()=>{delete window[cb];s.remove();if(k<3)setTimeout(()=>read(k+1),3000)};s.src=EP+"?cb="+cb;document.head.appendChild(s)};
 const ping=()=>{if(document.hidden)return;try{fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({tipo:"ping",sid:sid})}).catch(()=>{})}catch(_){}setTimeout(()=>read(0),2500)};
 ping();setInterval(ping,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)ping()});})();
 </script>
