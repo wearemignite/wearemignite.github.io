@@ -798,14 +798,14 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 @media (max-width:860px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;animation-iteration-count:1!important}.ticker-track{animation:none}.fire{transition:none}}
 .brand-grp{display:flex;align-items:center;gap:16px;min-width:0}
-.live{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:500;color:#e9e2dc;white-space:nowrap;line-height:1}
+.live{display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:500;color:#e9e2dc;white-space:nowrap;line-height:1}
 .live-dot{position:relative;width:8px;height:8px;border-radius:50%;background:#2fd36b;flex:none}
 .live-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #2fd36b;animation:livepulse 1.6s ease-out infinite}
 @keyframes livepulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.8);opacity:0}}
 .live-n{font-weight:800;color:#fff;font-variant-numeric:tabular-nums;display:inline-block;min-width:3ch;text-align:right;transition:color .4s}
 .live-n.up{color:#2fd36b}.live-n.down{color:#FF6600}
 .live-tag{font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.08em;padding:3px 6px;border-radius:4px;background:#CC0000;color:#fff;margin-left:2px}
-@media (max-width:900px){.live-t{display:none}.live-n::after{content:" en IG";font-weight:500;color:#e9e2dc}.live{padding:6px 10px;font-size:.74rem}.brand-grp{gap:10px}}
+@media (max-width:900px){.live-t{display:none}.live-n::after{content:" en línea";font-weight:500;color:#e9e2dc}.live{padding:6px 10px;font-size:.74rem}.brand-grp{gap:10px}}
 @media (max-width:420px){.live-tag{display:none}}
 </style>
 </head>
@@ -841,7 +841,7 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 
 <header class="site-head">
   <div class="wrap head-row">
-    <div class="brand-grp"><a class="brand" href="#inicio" aria-label="MIGNITE, ir al inicio"><svg class="logo-svg" viewBox="-4 -190 888 250" aria-hidden="true"><use href="#logo-h" x="-4" y="-190" width="888" height="250"/></svg></a><a class="live" href="https://www.instagram.com/wearemignite/" target="_blank" rel="noopener" aria-label="18,9 mil seguidores en Instagram, abrir @wearemignite"><i class="live-dot"></i><b class="live-n" id="live-n">18,9K</b><span class="live-t"> seguidores en Instagram</span></a></div>
+    <div class="brand-grp"><a class="brand" href="#inicio" aria-label="MIGNITE, ir al inicio"><svg class="logo-svg" viewBox="-4 -190 888 250" aria-hidden="true"><use href="#logo-h" x="-4" y="-190" width="888" height="250"/></svg></a><span class="live" id="live" hidden title="Visitantes en este momento"><i class="live-dot"></i><b class="live-n" id="live-n">1</b><span class="live-t"> en línea</span></span></div>
     <nav class="nav" aria-label="Principal">
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
@@ -2338,7 +2338,12 @@ footer{background:var(--carbon);padding-block:72px calc(40px + env(safe-area-ins
 })();
 </script>
 <script>
-(()=>{const el=document.getElementById("live-n");if(!el||matchMedia("(prefers-reduced-motion:reduce)").matches)return;const to=18.9,t0=performance.now()+400;const run=t=>{const k=Math.max(0,Math.min(1,(t-t0)/1400)),e=1-Math.pow(1-k,3);el.textContent=(to*e).toFixed(1).replace(".",",")+"K";if(k<1)requestAnimationFrame(run)};requestAnimationFrame(run)})();
+(()=>{const box=document.getElementById("live"),el=document.getElementById("live-n");if(!box||!el)return;
+const EP="https://script.google.com/macros/s/AKfycbwyMh4bkxO80edQsfYOFIOXYxHCrMFzjdwsHZbCirpdlaG2Am5QSJMQoKYO9Z3WNPdmDQ/exec";
+let sid="";try{sid=sessionStorage.getItem("mg_sid")||"";if(!sid){sid=Math.random().toString(36).slice(2,12);sessionStorage.setItem("mg_sid",sid)}}catch(_){sid=Math.random().toString(36).slice(2,12)}
+let cur=0;const show=n=>{if(n<1)n=1;if(n===cur)return;cur=n;el.textContent=n;box.hidden=false};
+const ping=async()=>{if(document.hidden)return;try{const r=await fetch(EP+"?sid="+sid+"&t="+Date.now());const j=await r.json();if(j&&typeof j.n==="number")show(j.n)}catch(_){}};
+ping();setInterval(ping,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)ping()});})();
 </script>
 </body>
 </html>
